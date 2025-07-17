@@ -1,23 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title></title>
+  <meta charset="UTF-8">
+  <title>Fullscreen Image</title>
   <style>
-    body {
+    html, body {
       margin: 0;
-      height: 100vh;
+      padding: 0;
+      height: 100%;
+    }
+    body {
       background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      overflow: hidden;
     }
     img {
-      max-width: 100%;
-      max-height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
     }
   </style>
 </head>
 <body>
-  <img src="photo.png" alt="">
+  <img src="photo.png" alt="Fullscreen Image">
 </body>
 </html>
