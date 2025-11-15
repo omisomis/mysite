@@ -46,11 +46,11 @@
     const urlParams = new URLSearchParams(window.location.search);
     const documentId = urlParams.get('id');
 
-    // Map document IDs to images (use DECODED versions)
+    // Map simple document IDs to images
     const documentMap = {
-      'Kvpe6tgS/2kPgKFRXw/5kQ': 'image1',      // Decoded version
-      'AaBcDeFg/hIjKlmNoP/qRsT': 'image2',     // Decoded version  
-      'XyZ123Ab/CdE456Gh/IjK789': 'image3'     // Decoded version
+      'doc1': 'image1',
+      'doc2': 'image2', 
+      'doc3': 'image3'
     };
 
     // Show the appropriate image
