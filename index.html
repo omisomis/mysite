@@ -32,7 +32,6 @@
   </style>
 </head>
 <body>
-  <!-- Images with correct paths -->
   <img id="image1" src="/images/document1.jpg" alt="Document 1" class="hidden">
   <img id="image2" src="/images/document2.jpg" alt="Document 2" class="hidden">
   <img id="image3" src="/images/document3.jpg" alt="Document 3" class="hidden">
@@ -47,11 +46,11 @@
     const urlParams = new URLSearchParams(window.location.search);
     const documentId = urlParams.get('id');
 
-    // Map document IDs to images
+    // Map document IDs to images (use DECODED versions)
     const documentMap = {
-      'Kvpe6tgS%2F2kPgKFRXw%2F5kQ': 'image1',
-      'AaBcDeFg%2FhIjKlmNoP%2FqRsT': 'image2',
-      'XyZ123Ab%2FCdE456Gh%2FIjK789': 'image3'
+      'Kvpe6tgS/2kPgKFRXw/5kQ': 'image1',      // Decoded version
+      'AaBcDeFg/hIjKlmNoP/qRsT': 'image2',     // Decoded version  
+      'XyZ123Ab/CdE456Gh/IjK789': 'image3'     // Decoded version
     };
 
     // Show the appropriate image
