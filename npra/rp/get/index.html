@@ -12,11 +12,13 @@
       width: 100%;
       background: #000;
       overflow: hidden;
+      font-family: Arial, sans-serif;
     }
     body {
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
     }
     img {
       max-width: 100%;
@@ -24,28 +26,53 @@
       width: auto;
       height: auto;
       display: block;
-      background: #000;
     }
     .hidden {
       display: none;
     }
+    #debug {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: yellow;
+      padding: 10px;
+      border: 2px solid red;
+      color: black;
+      z-index: 1000;
+    }
   </style>
 </head>
 <body>
-  <!-- Use absolute paths starting with / -->
-  <img id="image1" src="/images/document1.jpg" alt="Document 1" class="hidden">
-  <img id="image2" src="/images/document2.jpg" alt="Document 2" class="hidden">
-  <img id="image3" src="/images/document3.jpg" alt="Document 3" class="hidden">
+  <div id="debug">Debug info will appear here</div>
+
+  <!-- Test images with absolute paths -->
+  <img id="image1" src="/images/document1.jpg" alt="Document 1" class="hidden" onerror="imageError(1)">
+  <img id="image2" src="/images/document2.jpg" alt="Document 2" class="hidden" onerror="imageError(2)">
+  <img id="image3" src="/images/document3.jpg" alt="Document 3" class="hidden" onerror="imageError(3)">
   
   <div id="invalid" class="hidden" style="color: white; text-align: center;">
     <h1>Invalid Document Request</h1>
     <p>The requested document could not be found.</p>
+    <p id="errorDetails"></p>
   </div>
 
   <script>
+    // Debug function
+    function updateDebug(info) {
+      document.getElementById('debug').textContent = info;
+      console.log('DEBUG:', info);
+    }
+
+    // Image error handler
+    function imageError(imgNum) {
+      console.error('Image ' + imgNum + ' failed to load');
+    }
+
     // Get the ID parameter from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const documentId = urlParams.get('id');
+    
+    updateDebug('Document ID: ' + documentId + ' | URL: ' + window.location.href);
 
     // Map document IDs to images
     const documentMap = {
@@ -56,17 +83,17 @@
 
     // Show the appropriate image
     function showDocument() {
-      // Hide all images first
       document.querySelectorAll('img').forEach(img => img.classList.add('hidden'));
       document.getElementById('invalid').classList.add('hidden');
       
-      // Show the requested image
       if (documentId && documentMap[documentId]) {
         const imageToShow = document.getElementById(documentMap[documentId]);
+        updateDebug('Showing: ' + documentMap[documentId] + ' for ID: ' + documentId);
         imageToShow.classList.remove('hidden');
       } else {
-        // Show invalid message if ID not found
+        updateDebug('Invalid ID: ' + documentId);
         document.getElementById('invalid').classList.remove('hidden');
+        document.getElementById('errorDetails').textContent = 'ID received: ' + documentId;
       }
     }
 
