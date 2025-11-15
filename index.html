@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Display</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background: #000;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      display: block;
+    }
+    .hidden {
+      display: none;
+    }
+    #debug {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: yellow;
+      padding: 10px;
+      border: 2px solid red;
+      color: black;
+      z-index: 1000;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="debug">Loading...</div>
+
+  <img id="image1" src="/images/document1.jpg" alt="Document 1" class="hidden">
+  <img id="image2" src="/images/document2.jpg" alt="Document 2" class="hidden">
+  <img id="image3" src="/images/document3.jpg" alt="Document 3" class="hidden">
+  
+  <div id="invalid" class="hidden" style="color: white; text-align: center;">
+    <h1>Invalid Document Request</h1>
+    <p>The requested document could not be found.</p>
+    <p style="font-size: 12px; margin-top: 20px;" id="errorDetails"></p>
+  </div>
+
+  <script>
+    // Get the ID parameter from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const documentId = urlParams.get('id');
+    
+    // Debug info
+    const debugInfo = `
+      Full URL: ${window.location.href}
+      Document ID: ${documentId}
+      Path: ${window.location.pathname}
+      Search: ${window.location.search}
+    `;
+    
+    document.getElementById('debug').textContent = debugInfo;
+    document.getElementById('errorDetails').textContent = debugInfo;
+
+    // Map document IDs to images
+    const documentMap = {
+      'Kvpe6tgS%2F2kPgKFRXw%2F5kQ': 'image1',
+      'AaBcDeFg%2FhIjKlmNoP%2FqRsT': 'image2',
+      'XyZ123Ab%2FCdE456Gh%2FIjK789': 'image3'
+    };
+
+    // Show the appropriate image
+    function showDocument() {
+      document.querySelectorAll('img').forEach(img => img.classList.add('hidden'));
+      document.getElementById('invalid').classList.add('hidden');
+      
+      if (documentId && documentMap[documentId]) {
+        const imageToShow = document.getElementById(documentMap[documentId]);
+        imageToShow.classList.remove('hidden');
+        document.getElementById('debug').style.background = 'green';
+        document.getElementById('debug').style.color = 'white';
+      } else {
+        document.getElementById('invalid').classList.remove('hidden');
+      }
+    }
+
+    // Initialize when page loads
+    showDocument();
+  </script>
+</body>
+</html>
