@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document Display</title>
+  <title>Document Viewer</title>
   <style>
     html, body {
       margin: 0;
@@ -29,48 +29,41 @@
     .hidden {
       display: none;
     }
+    #error {
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
   </style>
 </head>
 <body>
-  <img id="image1" src="/images/document1.jpg" alt="Document 1" class="hidden">
-  <img id="image2" src="/images/document2.jpg" alt="Document 2" class="hidden">
-  <img id="image3" src="/images/document3.jpg" alt="Document 3" class="hidden">
+  <!-- Images with your perfect full-screen styling -->
+  <img id="img1" src="images/document1.jpg" alt="Document 1" class="hidden">
+  <img id="img2" src="images/document2.jpg" alt="Document 2" class="hidden">
+  <img id="img3" src="images/document3.jpg" alt="Document 3" class="hidden">
   
-  <div id="invalid" class="hidden" style="color: white; text-align: center;">
+  <!-- Error message (hidden by default) -->
+  <div id="error" class="hidden">
     <h1>Invalid Document Request</h1>
-    <p>The requested document could not be found.</p>
+    <p>Use: ?id=doc1 or ?id=doc2 or ?id=doc3</p>
   </div>
 
   <script>
     // Get the ID parameter from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const documentId = urlParams.get('id');
-
-    // Map simple document IDs to images
-    const documentMap = {
-      'doc1': 'image1',
-      'doc2': 'image2', 
-      'doc3': 'image3'
-    };
-
-    // Show the appropriate image
-    function showDocument() {
-      // Hide all images first
-      document.querySelectorAll('img').forEach(img => img.classList.add('hidden'));
-      document.getElementById('invalid').classList.add('hidden');
-      
-      // Show the requested image
-      if (documentId && documentMap[documentId]) {
-        const imageToShow = document.getElementById(documentMap[documentId]);
-        imageToShow.classList.remove('hidden');
-      } else {
-        // Show invalid message if ID not found
-        document.getElementById('invalid').classList.remove('hidden');
-      }
+    const url = new URL(window.location.href);
+    const id = url.searchParams.get('id');
+    
+    // Simple mapping
+    if (id === 'doc1') {
+      document.getElementById('img1').classList.remove('hidden');
+    } else if (id === 'doc2') {
+      document.getElementById('img2').classList.remove('hidden');
+    } else if (id === 'doc3') {
+      document.getElementById('img3').classList.remove('hidden');
+    } else {
+      // Show error if no valid ID
+      document.getElementById('error').classList.remove('hidden');
     }
-
-    // Initialize when page loads
-    showDocument();
   </script>
 </body>
 </html>
