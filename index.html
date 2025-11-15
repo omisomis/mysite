@@ -12,13 +12,11 @@
       width: 100%;
       background: #000;
       overflow: hidden;
-      font-family: Arial, sans-serif;
     }
     body {
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
     }
     img {
       max-width: 100%;
@@ -26,26 +24,15 @@
       width: auto;
       height: auto;
       display: block;
+      background: #000;
     }
     .hidden {
       display: none;
     }
-    #debug {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      background: yellow;
-      padding: 10px;
-      border: 2px solid red;
-      color: black;
-      z-index: 1000;
-      font-size: 14px;
-    }
   </style>
 </head>
 <body>
-  <div id="debug">Loading...</div>
-
+  <!-- Images with correct paths -->
   <img id="image1" src="/images/document1.jpg" alt="Document 1" class="hidden">
   <img id="image2" src="/images/document2.jpg" alt="Document 2" class="hidden">
   <img id="image3" src="/images/document3.jpg" alt="Document 3" class="hidden">
@@ -53,24 +40,12 @@
   <div id="invalid" class="hidden" style="color: white; text-align: center;">
     <h1>Invalid Document Request</h1>
     <p>The requested document could not be found.</p>
-    <p style="font-size: 12px; margin-top: 20px;" id="errorDetails"></p>
   </div>
 
   <script>
     // Get the ID parameter from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const documentId = urlParams.get('id');
-    
-    // Debug info
-    const debugInfo = `
-      Full URL: ${window.location.href}
-      Document ID: ${documentId}
-      Path: ${window.location.pathname}
-      Search: ${window.location.search}
-    `;
-    
-    document.getElementById('debug').textContent = debugInfo;
-    document.getElementById('errorDetails').textContent = debugInfo;
 
     // Map document IDs to images
     const documentMap = {
@@ -81,15 +56,16 @@
 
     // Show the appropriate image
     function showDocument() {
+      // Hide all images first
       document.querySelectorAll('img').forEach(img => img.classList.add('hidden'));
       document.getElementById('invalid').classList.add('hidden');
       
+      // Show the requested image
       if (documentId && documentMap[documentId]) {
         const imageToShow = document.getElementById(documentMap[documentId]);
         imageToShow.classList.remove('hidden');
-        document.getElementById('debug').style.background = 'green';
-        document.getElementById('debug').style.color = 'white';
       } else {
+        // Show invalid message if ID not found
         document.getElementById('invalid').classList.remove('hidden');
       }
     }
