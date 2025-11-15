@@ -5,39 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document Viewer</title>
   <style>
-    html, body {
+    * {
       margin: 0;
       padding: 0;
-      height: 100%;
-      width: 100%;
-      background: #000;
-      overflow: hidden;
+      box-sizing: border-box;
     }
+    
     body {
+      background-color: #000;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: center;
     }
+    
     img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
+      width: 100%;
       height: auto;
       display: block;
-      background: #000;
     }
+    
     .hidden {
       display: none;
     }
+    
     #error {
       color: white;
       text-align: center;
       padding: 50px;
+      width: 100%;
     }
   </style>
 </head>
 <body>
-  <!-- Images with your perfect full-screen styling -->
+  <!-- Images with full width and scrollable height -->
   <img id="img1" src="images/document1.jpg" alt="Document 1" class="hidden">
   <img id="img2" src="images/document2.jpg" alt="Document 2" class="hidden">
   <img id="img3" src="images/document3.jpg" alt="Document 3" class="hidden">
