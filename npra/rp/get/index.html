@@ -32,12 +32,11 @@
   </style>
 </head>
 <body>
-  <!-- Multiple images, only one will be shown -->
-  <img id="image1" src="images/document1.jpg" alt="Document 1" class="hidden">
-  <img id="image2" src="images/document2.jpg" alt="Document 2" class="hidden">
-  <img id="image3" src="images/document3.jpg" alt="Document 3" class="hidden">
+  <!-- Use absolute paths starting with / -->
+  <img id="image1" src="/images/document1.jpg" alt="Document 1" class="hidden">
+  <img id="image2" src="/images/document2.jpg" alt="Document 2" class="hidden">
+  <img id="image3" src="/images/document3.jpg" alt="Document 3" class="hidden">
   
-  <!-- Fallback if no valid ID -->
   <div id="invalid" class="hidden" style="color: white; text-align: center;">
     <h1>Invalid Document Request</h1>
     <p>The requested document could not be found.</p>
@@ -50,9 +49,9 @@
 
     // Map document IDs to images
     const documentMap = {
-      'Kvpe6tgS%2F2kPgKFRXw%2F5kQ': 'image1',  // QR Code 1
-      'AaBcDeFg%2FhIjKlmNoP%2FqRsT': 'image2',  // QR Code 2 (example)
-      'XyZ123Ab%2FCdE456Gh%2FIjK789': 'image3'   // Additional QR codes
+      'Kvpe6tgS%2F2kPgKFRXw%2F5kQ': 'image1',
+      'AaBcDeFg%2FhIjKlmNoP%2FqRsT': 'image2',
+      'XyZ123Ab%2FCdE456Gh%2FIjK789': 'image3'
     };
 
     // Show the appropriate image
