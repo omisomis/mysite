@@ -14,32 +14,21 @@
     body {
       background-color: #000;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       overflow-x: hidden; /* Prevent horizontal scroll */
     }
     
-    .image-container {
+    .image-wrapper {
       width: 100%;
       display: flex;
       justify-content: center;
-      align-items: flex-start; /* Align to top for tall images */
-      min-height: 100vh;
-      padding: 20px;
+      background-color: #000;
     }
     
     img {
-      max-width: 100%; /* Never exceed screen width */
+      width: 100%; /* Fill entire width of screen */
       height: auto; /* Maintain aspect ratio */
       display: block;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Optional: subtle shadow for better visibility */
-    }
-    
-    /* For very tall images on wide screens, allow vertical scrolling */
-    .tall-image {
-      align-items: flex-start;
-      padding-top: 20px;
+      max-width: 100vw; /* Ensure doesn't exceed viewport width */
     }
     
     .hidden {
@@ -51,6 +40,11 @@
       text-align: center;
       padding: 50px;
       width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       font-family: Arial, sans-serif;
     }
     
@@ -66,16 +60,16 @@
   </style>
 </head>
 <body>
-  <!-- Images with proper scaling -->
-  <div id="container1" class="image-container hidden">
+  <!-- Images with full width -->
+  <div id="wrapper1" class="image-wrapper hidden">
     <img id="img1" src="images/document1.jpg" alt="Document 1">
   </div>
   
-  <div id="container2" class="image-container hidden">
+  <div id="wrapper2" class="image-wrapper hidden">
     <img id="img2" src="images/document2.jpg" alt="Document 2">
   </div>
   
-  <div id="container3" class="image-container hidden">
+  <div id="wrapper3" class="image-wrapper hidden">
     <img id="img3" src="images/document3.jpg" alt="Document 3">
   </div>
   
@@ -92,65 +86,15 @@
     
     // Simple mapping
     if (id === 'doc1') {
-      const container = document.getElementById('container1');
-      const img = document.getElementById('img1');
-      container.classList.remove('hidden');
-      
-      // Load image to check its dimensions
-      img.onload = function() {
-        adjustContainerForImage(img, container);
-      };
-      
+      document.getElementById('wrapper1').classList.remove('hidden');
     } else if (id === 'doc2') {
-      const container = document.getElementById('container2');
-      const img = document.getElementById('img2');
-      container.classList.remove('hidden');
-      
-      img.onload = function() {
-        adjustContainerForImage(img, container);
-      };
-      
+      document.getElementById('wrapper2').classList.remove('hidden');
     } else if (id === 'doc3') {
-      const container = document.getElementById('container3');
-      const img = document.getElementById('img3');
-      container.classList.remove('hidden');
-      
-      img.onload = function() {
-        adjustContainerForImage(img, container);
-      };
-      
+      document.getElementById('wrapper3').classList.remove('hidden');
     } else {
       // Show error if no valid ID
       document.getElementById('error').classList.remove('hidden');
     }
-    
-    // Function to adjust container based on image aspect ratio
-    function adjustContainerForImage(img, container) {
-      const aspectRatio = img.naturalWidth / img.naturalHeight;
-      const screenAspectRatio = window.innerWidth / window.innerHeight;
-      
-      // If image is taller than wide compared to screen, add tall-image class
-      if (aspectRatio < screenAspectRatio) {
-        container.classList.add('tall-image');
-      }
-      
-      // For very tall images, ensure they don't overflow horizontally
-      if (img.naturalHeight > img.naturalWidth * 3) {
-        img.style.maxHeight = 'none'; // Allow full height
-      }
-    }
-    
-    // Handle window resize
-    window.addEventListener('resize', function() {
-      // Re-check all visible containers
-      const containers = document.querySelectorAll('.image-container:not(.hidden)');
-      containers.forEach(container => {
-        const img = container.querySelector('img');
-        if (img.complete) {
-          adjustContainerForImage(img, container);
-        }
-      });
-    });
   </script>
 </body>
 </html>
